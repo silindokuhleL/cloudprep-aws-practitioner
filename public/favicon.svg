@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CloudPrep">
+  <rect width="64" height="64" rx="14" fill="#0b4f30"/>
+  <path d="M19 39h28a8 8 0 0 0 1-15.94A12.5 12.5 0 0 0 24.3 20.5 9.5 9.5 0 0 0 19 39Z" fill="#dff7e8"/>
+  <path d="M24 42h16" stroke="#8fd8ab" stroke-width="4" stroke-linecap="round"/>
+</svg>

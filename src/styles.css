@@ -18,8 +18,12 @@
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; }
-button, select { font: inherit; }
+html { min-width: 0; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+button, select, input { font: inherit; }
 button:disabled { cursor: not-allowed; opacity: 0.55; }
 
 .app-shell {
@@ -113,6 +117,7 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .content-panel {
   padding: 32px;
   min-width: 0;
+  width: 100%;
 }
 
 .timer-bar {
@@ -225,7 +230,9 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   justify-content: center;
   gap: 8px;
   cursor: pointer;
-  white-space: nowrap;
+  max-width: 100%;
+  text-align: center;
+  white-space: normal;
 }
 
 .primary-action {
@@ -260,6 +267,7 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 18px;
+  min-width: 0;
 }
 
 .metric-card {
@@ -563,6 +571,19 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .skill-row h3 { margin: 0; }
 .skill-row p { margin: 6px 0 0; color: var(--muted); }
 .skill-row div:not(:first-child) { display: grid; gap: 4px; }
+.question-card,
+.answer-option,
+.result-box,
+.metric-card,
+.domain-card,
+.plan-card,
+.comparison-card,
+.history-card,
+.lesson-block,
+.review-card,
+.skill-row {
+  overflow-wrap: anywhere;
+}
 .state-weak { border-left-color: var(--danger); }
 .state-improving { border-left-color: var(--warning); }
 .state-strong { border-left-color: var(--brand); }
@@ -636,6 +657,12 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 }
 
 @media (max-width: 980px) {
+  .app-shell {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+  .sidebar {
+    padding: 20px;
+  }
   .metric-grid,
   .domain-grid,
   .lesson-grid,
@@ -657,9 +684,42 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 
 @media (max-width: 760px) {
   .app-shell { grid-template-columns: 1fr; }
-  .sidebar { position: static; }
-  .sidebar nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .content-panel { padding: 20px; }
+  .sidebar {
+    position: static;
+    gap: 16px;
+    padding: 16px;
+  }
+  .brand-mark {
+    align-items: flex-start;
+  }
+  .sidebar h1 {
+    font-size: 24px;
+  }
+  .sidebar nav {
+    display: grid;
+    grid-auto-columns: minmax(136px, max-content);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    gap: 8px;
+    margin: 0 -16px;
+    overflow-x: auto;
+    padding: 2px 16px 8px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-item {
+    justify-content: center;
+    min-height: 44px;
+    scroll-snap-align: start;
+    white-space: nowrap;
+  }
+  .reset-button,
+  .reset-button.demo {
+    margin-top: 0;
+  }
+  .content-panel {
+    padding: 18px;
+  }
   .page-header,
   .hero-band,
   .section-heading {
@@ -678,15 +738,77 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   }
   .timer-bar {
     grid-template-columns: 1fr;
+    top: 8px;
+    margin: -2px 0 18px;
   }
   .timer-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: stretch;
   }
   .timer-actions .primary-action,
   .timer-actions .secondary-action {
-    flex: 1;
+    width: 100%;
+  }
+  .hero-band .primary-action,
+  .hero-band .secondary-action,
+  .section-heading .primary-action,
+  .section-heading .secondary-action,
+  .select {
+    width: 100%;
+  }
+  .skill-row {
+    grid-template-columns: 1fr;
   }
   .question-navigator {
-    grid-template-columns: repeat(5, minmax(34px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .content-panel {
+    padding: 14px;
+  }
+  .hero-band,
+  .section-panel,
+  .empty-state,
+  .metric-card,
+  .domain-card,
+  .lesson-block,
+  .review-card,
+  .question-card,
+  .plan-card,
+  .comparison-card,
+  .history-card {
+    padding: 16px;
+  }
+  .page-header h2,
+  .hero-band h2,
+  .section-panel h2 {
+    font-size: 26px;
+    line-height: 1.12;
+  }
+  .question-card h3 {
+    font-size: 20px;
+  }
+  .answer-option {
+    grid-template-columns: 22px minmax(0, 1fr);
+  }
+  .button-row,
+  .confidence-group,
+  .exam-status {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .button-row .primary-action,
+  .button-row .secondary-action,
+  .confidence-button,
+  .exam-status span {
+    width: 100%;
+  }
+  .metric-card strong,
+  .domain-card strong,
+  .history-card strong {
+    font-size: 20px;
   }
 }
