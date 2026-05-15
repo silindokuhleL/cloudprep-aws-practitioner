@@ -18,7 +18,10 @@
 }
 
 * { box-sizing: border-box; }
-html { min-width: 0; }
+html {
+  min-width: 0;
+  overflow-x: hidden;
+}
 body {
   margin: 0;
   overflow-x: hidden;
@@ -30,6 +33,8 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   min-height: 100vh;
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
+  max-width: 100vw;
+  overflow-x: clip;
 }
 
 .sidebar {
@@ -39,6 +44,8 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .brand-mark {
@@ -118,6 +125,7 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   padding: 32px;
   min-width: 0;
   width: 100%;
+  max-width: 100%;
 }
 
 .timer-bar {
@@ -697,21 +705,18 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   }
   .sidebar nav {
     display: grid;
-    grid-auto-columns: minmax(136px, max-content);
-    grid-auto-flow: column;
-    grid-template-columns: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
-    margin: 0 -16px;
-    overflow-x: auto;
-    padding: 2px 16px 8px;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
   }
   .nav-item {
     justify-content: center;
     min-height: 44px;
-    scroll-snap-align: start;
-    white-space: nowrap;
+    min-width: 0;
+    text-align: center;
+    white-space: normal;
   }
   .reset-button,
   .reset-button.demo {
@@ -766,6 +771,13 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 }
 
 @media (max-width: 480px) {
+  .sidebar nav {
+    gap: 6px;
+  }
+  .nav-item,
+  .reset-button {
+    padding: 10px 9px;
+  }
   .content-panel {
     padding: 14px;
   }
